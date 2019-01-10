@@ -20,7 +20,8 @@ import android.os.PowerManager;
 /**
  * A helper class to manage the WakeLock of CPU
  * This class obtain Wake Lock as PARTIAL_WAKE_LOCK
- * See <a href="Source">https://developer.android.com/topic/performance/vitals/wakelock</a>
+ * 
+ * @see <a href="Source">https://developer.android.com/topic/performance/vitals/wakelock</a>
  *
  * @version 1.0
  */

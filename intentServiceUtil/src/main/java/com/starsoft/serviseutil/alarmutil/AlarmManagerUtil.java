@@ -25,7 +25,8 @@ import android.os.Build;
  * on different versions of Android
  *
  * @version 1.0
- * See <a href="Source">https://habr.com/post/274169/</a>
+ *
+ * @see <a href="Source">https://habr.com/post/274169/</a>
  */
 public class AlarmManagerUtil {
     
