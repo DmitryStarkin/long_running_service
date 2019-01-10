@@ -14,6 +14,7 @@ http://www.williamspublishing.com/Books/978-5-8459-1801-7.html
 Also contains code to work with the Alarm manager which is based on the article
 https://habr.com/post/274169/
 
+See [JavaDocs](https://dmitrystarkin.github.io/Long-running-service/)
 
 Usage:
 
