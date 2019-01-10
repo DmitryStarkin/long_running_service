@@ -26,7 +26,7 @@ import android.os.Build;
  *
  * @version 1.0
  *
- * @see <a href="Source">https://habr.com/post/274169/</a>
+ * @see <a href="https://habr.com/post/274169/">https://habr.com/post/274169/</a>
  */
 public class AlarmManagerUtil {
     
