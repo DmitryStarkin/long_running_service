@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
           package="com.starsoft.serviceutil">
-
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <application
         android:label="@string/app_name"
         >

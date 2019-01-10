@@ -1,6 +1,6 @@
 **A small library to create long-running broadcast receiver**
 
-**Run services in the background and automatic obtaining Wakelocks**
+**Run services from receiver in the background and automatic obtaining Wakelocks**
 
 This library based on the code given in Chapter 19 of the book Pro Android 4
 Authors: Komatineni, Satya, MacLean, Dave
@@ -25,7 +25,7 @@ Usage:
  single method handleIntent, your service must have a default constructor and call
  the superclass constructor and pass it the name: for example
 
- ```
+ ```Java
  public class MyService extends LongRunningBroadcastService {
 
  public MyService() {
@@ -64,7 +64,7 @@ Usage:
  ```
 5  Inherit from the abstract class LongRunningReceiver and implement the single method getServiceClass()
 (You must return the class of Your service): for example
- ```
+ ```Java
  public class MyReceiver extends LongRunningReceiver {
 
      private final String TAG = getClass().getSimpleName();
@@ -95,11 +95,6 @@ Usage:
   ...
   </application>
   ```
-
-7  Register a user permission to work with the wake lock.
- ```
- <uses-permission android:name="android.permission.WAKE_LOCK"/>
- ```
   You are finished.
 
   To start the service without using a receiver
@@ -107,5 +102,10 @@ Usage:
   Intent newIntent = new Intent(this.getApplicationContext(), MyService.class);
               startService(newIntent);
   ```
+
+ This library registers the following permission in its manifest
+ ```
+ <uses-permission android:name="android.permission.WAKE_LOCK"/>
+ ```
 
 To work with the Alarm manager use the static methods from the class AlarmManagerUtil

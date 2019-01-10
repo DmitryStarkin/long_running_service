@@ -34,8 +34,8 @@ public class AlarmManagerUtil {
      * at the expiration of the time interval
      *
      * @param alarmManager The instance of Alarm Manager
-     * @param pi           -An PendingIntent describing the receiver to be started.
-     * @param timeInterval - The time through which will run the receiver, milliseconds
+     * @param pi           An PendingIntent describing the receiver to be started.
+     * @param timeInterval The time through which will run the receiver, milliseconds
      * @return Returns a time when it was installed, milliseconds, time since January 1 1970
      */
     
@@ -58,8 +58,8 @@ public class AlarmManagerUtil {
      * Checks whether a deferred task to run the receiver
      *
      * @param context    The Context in which this PendingIntent should start
-     * @param intent     -An Intent describing the receiver to be started.
-     * @param identifier - Unique identifier
+     * @param intent     An Intent describing the receiver to be started.
+     * @param identifier Unique identifier
      * @return Returns true if the receiver exists and is not already running, otherwise false
      */
     public static synchronized boolean isServiceAlarmOn(Context context, Intent intent, int identifier) {
@@ -72,8 +72,8 @@ public class AlarmManagerUtil {
      * Checks whether a deferred task to run the service
      *
      * @param context    The Context in which this PendingIntent should start
-     * @param intent     -An Intent describing the service to be started.
-     * @param identifier - Unique identifier
+     * @param intent     An Intent describing the service to be started.
+     * @param identifier Unique identifier
      * @return Returns true if the service exists and is not already running, otherwise false
      */
     public static synchronized boolean isBroadcastAlarmOn(Context context, Intent intent, int identifier) {
@@ -88,9 +88,9 @@ public class AlarmManagerUtil {
      * previous run cancelled
      *
      * @param context      The Context in which this PendingIntent should start
-     * @param intent       -An Intent describing the receiver to be started.
-     * @param timeInterval - The time through which will run the receiver, milliseconds
-     * @param identifier   - Unique identifier
+     * @param intent       An Intent describing the receiver to be started.
+     * @param timeInterval The time through which will run the receiver, milliseconds
+     * @param identifier   Unique identifier
      * @return Returns a time when it was installed, milliseconds, time since January 1 1970
      */
     public static synchronized long setBroadcastAlarm(Context context, Intent intent, long timeInterval, int identifier) {
@@ -106,9 +106,9 @@ public class AlarmManagerUtil {
      * previous run cancelled
      *
      * @param context      The Context in which this PendingIntent should start
-     * @param intent       -An Intent describing the service to be started.
-     * @param timeInterval - The time through which will run the service, milliseconds
-     * @param identifier   - Unique identifier
+     * @param intent       An Intent describing the service to be started.
+     * @param timeInterval The time through which will run the service, milliseconds
+     * @param identifier   Unique identifier
      * @return Returns a time when it was installed, milliseconds, time since January 1 1970
      */
     public static synchronized long setServiceAlarm(Context context, Intent intent, long timeInterval, int identifier) {
@@ -123,8 +123,8 @@ public class AlarmManagerUtil {
      * if it is not started
      *
      * @param context    The Context in which this PendingIntent should start
-     * @param intent     -An Intent describing the item to be started.
-     * @param identifier - Unique identifier
+     * @param intent     An Intent describing the item to be started.
+     * @param identifier Unique identifier
      */
     public static synchronized void cancelAlarm(Context context, Intent intent, int identifier) {
         
