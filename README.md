@@ -19,11 +19,13 @@ Usage:
 
 1 add a module to the project
 
-2 in build.gradle write -  implementation project(':intetServiseUtil')
-
+2 in build.gradle write
+```
+implementation project(':intetServiseUtil')
+```
 3  Inherit from the abstract class LongRunningBroadcastService and implement them
  single method handleIntent, your service must have a default constructor and call
- the superclass constructor and pass it the name: for example
+ the superclass constructor and pass it the name. Example:
 
  ```Java
  public class MyService extends LongRunningBroadcastService {
@@ -63,7 +65,7 @@ Usage:
  </application>
  ```
 5  Inherit from the abstract class LongRunningReceiver and implement the single method getServiceClass()
-(You must return the class of Your service): for example
+(You must return the class of Your service). Example:
  ```Java
  public class MyReceiver extends LongRunningReceiver {
 
@@ -98,12 +100,13 @@ Usage:
   You are finished.
 
   To start the service without using a receiver
-  ```
+  ```java
   Intent newIntent = new Intent(this.getApplicationContext(), MyService.class);
               startService(newIntent);
   ```
 
  This library registers the following permission in its manifest
+
  ```
  <uses-permission android:name="android.permission.WAKE_LOCK"/>
  ```
