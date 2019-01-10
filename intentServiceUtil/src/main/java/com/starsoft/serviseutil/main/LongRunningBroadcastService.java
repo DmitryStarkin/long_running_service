@@ -31,12 +31,15 @@ import android.content.Intent;
  * perform long running operations in it.
  * Your service must have a default constructor
  * and call the superclass constructor and pass it the name.
- * <p>
+ * for example
+ * <pre>
+ * <code>
  * public MyService() {
- * <p>
+ *
  * super("MyService");
  * }
- *
+ * </code>
+ * </pre>
  * @version 1.0
  */
 
