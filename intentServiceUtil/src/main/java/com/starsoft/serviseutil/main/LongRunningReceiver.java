@@ -51,6 +51,7 @@ public abstract class LongRunningReceiver extends BroadcastReceiver {
      * nonSticky service.
      *
      * @return Returns an object of class representative your service
+     * This service must inherit from {@link LongRunningBroadcastService}
      */
-    public abstract Class getServiceClass();
+    public abstract Class<? extends LongRunningBroadcastService> getServiceClass();
 }
