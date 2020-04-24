@@ -25,7 +25,6 @@ import android.os.Build;
  * on different versions of Android
  *
  * @version 1.0
- *
  * @see <a href="https://habr.com/post/274169/">https://habr.com/post/274169/</a>
  */
 public class AlarmManagerUtil {
@@ -44,7 +43,11 @@ public class AlarmManagerUtil {
     protected static long setUpAlarm(AlarmManager alarmManager, PendingIntent pi, long timeInterval) {
         
         long curTime;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //TODO Requires verification
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, (curTime = System.currentTimeMillis()) + timeInterval, pi);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo((curTime = System.currentTimeMillis()) + timeInterval, pi);
             alarmManager.setAlarmClock(alarmClockInfo, pi);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

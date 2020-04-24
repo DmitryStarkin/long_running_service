@@ -15,78 +15,115 @@
 package com.starsoft.serviseutil.main;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 
 /**
  * A helper class to manage the WakeLock of CPU
  * This class obtain Wake Lock as PARTIAL_WAKE_LOCK
  *
- * @see <a href="https://developer.android.com/topic/performance/vitals/wakelock">https://developer.android.com/topic/performance/vitals/wakelock</a>
- *
  * @version 1.0
+ * @see <a href="https://developer.android.com/topic/performance/vitals/wakelock">https://developer.android.com/topic/performance/vitals/wakelock</a>
  */
 
-public class WakeLockManager {
+class WakeLockManager {
     
+    static final int RELEASE_WAKELOCK = 1;
+    private static final long RELEASE_WAKELOCK_IDLE_TIME = 180000;
     private static WakeLockManager sWakeLockManager = null;
     private final String TAG = getClass().getSimpleName();
+    private Handler mHandler;
     private int countWakeLock;
-    private PowerManager.WakeLock myWakeLock;
+    private PowerManager.WakeLock mWakeLock;
     private int clientServiceCount = 0;
     
     private WakeLockManager(Context context) {
         
-        myWakeLock = this.createWakeLock(context);
+        mWakeLock = this.createWakeLock(context);
     }
     
-    static synchronized void create(Context context) {
+    static synchronized WakeLockManager getInstance() {
+        
+        if (sWakeLockManager == null) {
+            throw new RuntimeException("You need to create WakeLockManager first");
+        }
+        return sWakeLockManager;
+    }
+    
+    @SuppressWarnings("all")
+    static synchronized WakeLockManager create(Context context, long idleTime) {
         
         if (sWakeLockManager == null) {
             sWakeLockManager = new WakeLockManager(context);
             sWakeLockManager.acquireWakeLock();
+            sWakeLockManager.startTimer(idleTime);
+        }
+        
+        return sWakeLockManager;
+    }
+    
+    static synchronized WakeLockManager create(Context context) {
+        
+        return create(context, RELEASE_WAKELOCK_IDLE_TIME);
+    }
+    
+    private void startTimer(long idleTime) {
+        
+        if (mHandler == null) {
+            mHandler = new TimerHandler();
+        }
+        mHandler.removeMessages(RELEASE_WAKELOCK);
+        Message message = mHandler.obtainMessage(RELEASE_WAKELOCK, this);
+        mHandler.sendMessageDelayed(message, idleTime);
+    }
+    
+    private void stopTimer() {
+        
+        if (mHandler != null) {
+            mHandler.removeMessages(RELEASE_WAKELOCK);
+            mHandler = null;
         }
     }
     
-    private synchronized static boolean isCreate() {
+    private synchronized boolean isCreate() {
         
         return sWakeLockManager != null;
     }
     
     @SuppressWarnings("all")
-    synchronized static int enterWakeLock() {
+    synchronized int enterWakeLock() {
         
-        assertSetup();
-        return sWakeLockManager.enter();
+        stopTimer();
+        return enter();
     }
     
     @SuppressWarnings("all")
-    synchronized static int leaveWakeLock() {
+    synchronized int leaveWakeLock() {
         
-        assertSetup();
-        return sWakeLockManager.leave();
+        return leave();
     }
     
     /**
      * Releases all locks and resets the Manager
      * usually never need to call this method
      */
-    public synchronized static void killWakeLockManager() {
+    @SuppressWarnings("all")
+    synchronized void killWakeLockManager() {
         
-        if (WakeLockManager.isCreate()) {
-            sWakeLockManager.emptyWakeLockManager();
+        if (isCreate()) {
+            emptyWakeLockManager();
         }
     }
     
-    synchronized static void registerAsClient() {
+    synchronized void registerAsClient() {
         
-        assertSetup();
-        sWakeLockManager.registerClientService();
+        registerClientService();
     }
     
-    synchronized static void unRegisterAsClient() {
+    synchronized void unRegisterAsClient() {
         
-        assertSetup();
-        sWakeLockManager.unRegisterClientService();
+        unRegisterClientService();
     }
     
     /**
@@ -99,9 +136,9 @@ public class WakeLockManager {
         return countWakeLock;
     }
     
-    private static void assertSetup() {
+    private void assertSetup() {
         
-        if (!WakeLockManager.isCreate()) {
+        if (!isCreate()) {
             throw new RuntimeException("You need to create WakeLockManager first");
         }
     }
@@ -127,14 +164,14 @@ public class WakeLockManager {
     @SuppressWarnings("all")
     private void acquireWakeLock() {
         
-        myWakeLock.acquire();
+        mWakeLock.acquire();
     }
     
     private void releaseWakeLock() {
         
-        if (myWakeLock.isHeld()) {
+        if (mWakeLock.isHeld()) {
             
-            myWakeLock.release();
+            mWakeLock.release();
         }
     }
     

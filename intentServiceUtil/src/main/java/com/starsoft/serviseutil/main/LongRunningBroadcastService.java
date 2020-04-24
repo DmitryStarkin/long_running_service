@@ -40,6 +40,7 @@ import android.content.Intent;
  * }
  * </code>
  * </pre>
+ *
  * @version 1.0
  */
 
@@ -74,15 +75,14 @@ public abstract class LongRunningBroadcastService extends IntentService {
     public void onCreate() {
         
         super.onCreate();
-        WakeLockManager.create(this.getApplicationContext());
-        WakeLockManager.registerAsClient();
+        WakeLockManager.create(this.getApplicationContext()).registerAsClient();
     }
     
     @Override
     final public int onStartCommand(Intent intent, int flag, int startId) {
         
         super.onStart(intent, startId);
-        WakeLockManager.enterWakeLock();
+        WakeLockManager.getInstance().enterWakeLock();
         return Service.START_NOT_STICKY;
     }
     
@@ -93,7 +93,7 @@ public abstract class LongRunningBroadcastService extends IntentService {
     public void onDestroy() {
         
         super.onDestroy();
-        WakeLockManager.unRegisterAsClient();
+        WakeLockManager.getInstance().unRegisterAsClient();
     }
     
     @Override
@@ -107,7 +107,7 @@ public abstract class LongRunningBroadcastService extends IntentService {
                 handleIntent(intent);
             }
         } finally {
-            WakeLockManager.leaveWakeLock();
+            WakeLockManager.getInstance().leaveWakeLock();
         }
     }
 }
