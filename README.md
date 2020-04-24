@@ -24,6 +24,24 @@ Usage:
 ```
 implementation project(':intetServiseUtil')
 ```
+Or use a method that does not require cloning the repository:
+
+in project level build.gradle add:
+```
+repositories {
+........
+        maven { url "https://jitpack.io" }
+   }
+```
+
+in module level build.gradle add:
+```
+dependencies {
+...........
+         implementation 'com.github.DmitryStarkin:Long-running-service:1.2.0b'
+   }
+```
+
 3  Inherit from the abstract class LongRunningBroadcastService and implement them
  single method handleIntent, your service must have a default constructor and call
  the superclass constructor and pass it the name. Example:
