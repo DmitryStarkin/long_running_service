@@ -18,15 +18,7 @@ See [JavaDocs](https://dmitrystarkin.github.io/Long-running-service/)
 
 Usage:
 
-1 add a module to the project
-
-2 in build.gradle write
-```
-implementation project(':intetServiseUtil')
-```
-Or use a method that does not require cloning the repository:
-
-in project level build.gradle add:
+1 in project level build.gradle add:
 ```
 repositories {
 ........
@@ -34,7 +26,7 @@ repositories {
    }
 ```
 
-in module level build.gradle add:
+2 in module level build.gradle add:
 ```
 dependencies {
 ...........
@@ -42,7 +34,7 @@ dependencies {
    }
 ```
 
-3  Inherit from the abstract class LongRunningBroadcastService and implement them
+3 Inherit from the abstract class LongRunningBroadcastService and implement them
  single method handleIntent, your service must have a default constructor and call
  the superclass constructor and pass it the name. Example:
 
