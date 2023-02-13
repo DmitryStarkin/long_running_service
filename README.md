@@ -16,6 +16,8 @@ https://habr.com/post/274169/
 
 See [JavaDocs](https://dmitrystarkin.github.io/Long-running-service/)
 
+last version 1.2.2b
+
 Usage:
 
 1 in project level build.gradle add:
@@ -30,7 +32,7 @@ repositories {
 ```
 dependencies {
 ...........
-         implementation 'com.github.DmitryStarkin:Long-running-service:1.2.0b'
+         implementation 'com.github.DmitryStarkin:Long-running-service:last version'
    }
 ```
 
